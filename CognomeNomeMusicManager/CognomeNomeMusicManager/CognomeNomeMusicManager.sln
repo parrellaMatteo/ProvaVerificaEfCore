@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CognomeNomeMusicManager", "CognomeNomeMusicManager.csproj", "{AE87C967-E248-A72B-1684-9564E3B5E19A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE87C967-E248-A72B-1684-9564E3B5E19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE87C967-E248-A72B-1684-9564E3B5E19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE87C967-E248-A72B-1684-9564E3B5E19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE87C967-E248-A72B-1684-9564E3B5E19A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B22E7BA-6355-427C-8E96-E9A759064415}
+	EndGlobalSection
+EndGlobal
