@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CognomeNomeMusicManager.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreate3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,6 +40,19 @@ namespace CognomeNomeMusicManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Strumento",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Strumento", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cantante",
                 columns: table => new
                 {
@@ -56,6 +69,31 @@ namespace CognomeNomeMusicManager.Migrations
                         name: "FK_Cantante_Etichetta_EtichettaId",
                         column: x => x.EtichettaId,
                         principalTable: "Etichetta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Abilità",
+                columns: table => new
+                {
+                    StrumentoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CantanteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Livello = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Abilità", x => new { x.StrumentoId, x.CantanteId });
+                    table.ForeignKey(
+                        name: "FK_Abilità_Cantante_CantanteId",
+                        column: x => x.CantanteId,
+                        principalTable: "Cantante",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Abilità_Strumento_StrumentoId",
+                        column: x => x.StrumentoId,
+                        principalTable: "Strumento",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -87,6 +125,18 @@ namespace CognomeNomeMusicManager.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Abilità_CantanteId",
+                table: "Abilità",
+                column: "CantanteId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Abilità_StrumentoId",
+                table: "Abilità",
+                column: "StrumentoId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cantante_EtichettaId",
                 table: "Cantante",
                 column: "EtichettaId");
@@ -101,7 +151,13 @@ namespace CognomeNomeMusicManager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Abilità");
+
+            migrationBuilder.DropTable(
                 name: "Esibizione");
+
+            migrationBuilder.DropTable(
+                name: "Strumento");
 
             migrationBuilder.DropTable(
                 name: "Cantante");

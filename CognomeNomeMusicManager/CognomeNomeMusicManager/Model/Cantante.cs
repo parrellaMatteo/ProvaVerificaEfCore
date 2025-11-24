@@ -14,4 +14,6 @@ public class Cantante
     public Etichetta Etichetta { get; set; }=null!;
     public List<Esibizione> Esibizioni { get; set; }= null!;
     public List<Festival> Festivals { get; set; } = null!;
+    public Abilità Abilità { get; set; }=null!;
+
 }

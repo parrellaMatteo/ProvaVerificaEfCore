@@ -11,14 +11,36 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CognomeNomeMusicManager.Migrations
 {
     [DbContext(typeof(MusicContext))]
-    [Migration("20251124171721_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251124180812_InitialCreate3")]
+    partial class InitialCreate3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.0");
+
+            modelBuilder.Entity("CognomeNomeMusicManager.Model.Abilità", b =>
+                {
+                    b.Property<int>("StrumentoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CantanteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Livello")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("StrumentoId", "CantanteId");
+
+                    b.HasIndex("CantanteId")
+                        .IsUnique();
+
+                    b.HasIndex("StrumentoId")
+                        .IsUnique();
+
+                    b.ToTable("Abilità");
+                });
 
             modelBuilder.Entity("CognomeNomeMusicManager.Model.Cantante", b =>
                 {
@@ -102,6 +124,40 @@ namespace CognomeNomeMusicManager.Migrations
                     b.ToTable("Festival");
                 });
 
+            modelBuilder.Entity("CognomeNomeMusicManager.Model.Strumento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Strumento");
+                });
+
+            modelBuilder.Entity("CognomeNomeMusicManager.Model.Abilità", b =>
+                {
+                    b.HasOne("CognomeNomeMusicManager.Model.Cantante", "Cantante")
+                        .WithOne("Abilità")
+                        .HasForeignKey("CognomeNomeMusicManager.Model.Abilità", "CantanteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CognomeNomeMusicManager.Model.Strumento", "Strumento")
+                        .WithOne("Abilità")
+                        .HasForeignKey("CognomeNomeMusicManager.Model.Abilità", "StrumentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cantante");
+
+                    b.Navigation("Strumento");
+                });
+
             modelBuilder.Entity("CognomeNomeMusicManager.Model.Cantante", b =>
                 {
                     b.HasOne("CognomeNomeMusicManager.Model.Etichetta", "Etichetta")
@@ -134,6 +190,9 @@ namespace CognomeNomeMusicManager.Migrations
 
             modelBuilder.Entity("CognomeNomeMusicManager.Model.Cantante", b =>
                 {
+                    b.Navigation("Abilità")
+                        .IsRequired();
+
                     b.Navigation("Esibizioni");
                 });
 
@@ -145,6 +204,12 @@ namespace CognomeNomeMusicManager.Migrations
             modelBuilder.Entity("CognomeNomeMusicManager.Model.Festival", b =>
                 {
                     b.Navigation("Esibizioni");
+                });
+
+            modelBuilder.Entity("CognomeNomeMusicManager.Model.Strumento", b =>
+                {
+                    b.Navigation("Abilità")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
